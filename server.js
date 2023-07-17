@@ -31,7 +31,7 @@ require("dotenv").config();
 const connectionString = `${process.env.Protocol}${process.env.DB_USERNAME}:${process.env.DB_PASSWD}@${process.env.Host}/${process.env.DatabaseName}`;
 //const { mongoose } = require("./app/models");
 
-console.log("connectionString",connectionString);
+//console.log("connectionString",connectionString);
 db.mongoose
     .connect(connectionString, {
         useNewUrlParser: true,
@@ -52,6 +52,12 @@ const conn = mongoose.connection;
 // console.log("connnn", conn);
 module.exports = conn;
 
+app.get("/", (req, res) => {
+    res.json({ message: "Welcome to Node JS." });
+});
+
+
+require("./app/routes/user_routes")(app);
 
 const PORT = 3045;
 app.listen(PORT, () => {
