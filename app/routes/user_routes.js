@@ -6,11 +6,10 @@ module.exports = (app) => {
     let router = require("express").Router();
     const passport = require("passport");
     require("../helpers/passport.js");
-
-
+    
     const requireAuth = passport.authenticate("jwt", { session: false });
     const requireSignin = passport.authenticate("local", { session: false });
-    console.log("requireSignin", requireSignin, requireAuth);
+    //console.log("requireSignin", requireSignin, requireAuth);
 
     // Retrieve all Tutorials
     router.post("/", requireAuth, controller.findAll);
