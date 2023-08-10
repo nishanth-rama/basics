@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Libre+Barcode+39+Extended+Text&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <script>
+      const api_url1 = `https://uat-api-rapid.censanext.com/api/master/company/get_all_by_company_code?company_code=${1000}`;
+      async function companyDetails(url) {
+        const response = await fetch(url);
+        var data = await response.json();
+        console.log(data);
+        show(data);
+      }
+      function show(data) {
+        let companyData = `
+            ${data.data[0].company_name}
+        `;
+        let cinNo = `
+            ${data.data[0].cin_number}
+        `;
+        let webInfo = `
+            ${data.data[0].website_url}
+        `;
+        document.getElementById("company").innerHTML = companyData;
+        document.getElementById("cinno").innerHTML = cinNo;
+        document.getElementById("webinfo").innerHTML = webInfo;
+      }
+      companyDetails(api_url1);
+      const api_url2 = `https://uat-api-rapid.censanext.com/api/invoicemaster/get_specific_invoice?invoice_no=0901293808`;
+      async function grnNoteDetails(url) {
+        const response = await fetch(url);
+        var data = await response.json();
+        console.log(data);
+        showDetailApi(data);
+      }
+      function showDetailApi(data) {
+        let detailData = `
+            ${data.data[0].plant_detail[0].plant_address}
+        `;
+        let gstData = `
+            ${data.data[0].plant_detail[0].gst_number}
+        `;
+        let irnNo = `
+            ${data.data[0].invoiceDetails[0].irn_no}
+        `;
+        document.getElementById("detail").innerHTML = detailData;
+        document.getElementById("gstno").innerHTML = gstData;
+        document.getElementById("irnno").innerHTML = irnNo;
+      }
+      grnNoteDetails(api_url2);
+      var imgApi = `https://uat-api-rapid.censanext.com/1000/WaycoolLogo.png`;
+    </script>
+    <div style="width: 100vw">
+      <div class="container">
+        <section class="content">
+          <div>
+            <div style="background-color: #fff">
+              <div style="border: 1px solid black; margin: 1.5rem">
+                <div style="position: absolute">
+                  <img
+                    src="https://uat-api-rapid.censanext.com/1000/WaycoolLogo.png"
+                    alt="logo"
+                    style="float: left; width: 50px; height: 50px; margin: 1rem"
+                  />
+                </div>
+                <div class="grid">
+                  <div>
+                    <div
+                      class="grn-title text-center mb-2"
+                      id="company"
+                      style="
+                        text-align: center;
+                        font-weight: 700;
+                        font-family: Times New Roman, Times, serif;
+                        font-size: 1.2rem;
+                        word-spacing: 0.5rem;
+                        word-spacing: 0.3rem;
+                        text-transform: uppercase;
+                        margin-top: 1.5rem;
+                      "
+                    ></div>
+                    <div
+                      style="
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                      "
+                    >
+                      <div class="col-md-4" style="margin-top: 1rem">
+                        <span
+                          style="font-size: 14px; font-weight: 500"
+                          id="detail"
+                        ></span>
+                        <br />
+                      </div>
+                    </div>
+                    <div
+                      style="
+                        display: flex;
+                        margin-top: 0.5rem;
+                        align-items: center;
+                        justify-content: center;
+                      "
+                    >
+                      <span style="font-size: 14px">GST No. :</span>
+                      <span
+                        style="font-size: 14px; margin-left: 5px"
+                        id="gstno"
+                      ></span>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  style="
+                    text-align: center;
+                    font-weight: 700;
+                    font-family: Times New Roman, Times, serif;
+                    font-size: 0.9rem;
+                    word-spacing: 0.3rem;
+                    margin-top: 1rem;
+                  "
+                >
+                  TAX INVOICE
+                </div>
+                  <div style="display: flex">
+                    <div
+                      style="margin-top: 1.5rem; margin-left: 0.5rem; width: 50vw"
+                    >
+                      <div style="font-weight: bold">
+                        CIN<span style="margin-left: 7rem">:</span
+                        ><span id="cinno" style="margin-left: 5px"></span>
+                      </div>
+                      <div style="font-weight: bold; margin-top: 5px">
+                        WEBSITE INFO<span style="margin-left: 1.45rem">:</span
+                        ><span id="webinfo" style="margin-left: 5px"></span>
+                      </div>
+                      <div style="font-weight: bold; margin-top: 5px">
+                        IRN No<span style="margin-left: 5.5rem">:</span
+                        ><span id="irnno" style="margin-left: 5px"></span>
+                      </div>
+                    </div>
+                    <div style="width: 50vw; text-align: end;">
+                      <span
+                        style="
+                          font-family: 'Libre Barcode 39 Extended Text';
+                          font-size: 40px; margin-right: 5px;
+                        ">0901293808</span>
+                        <div style="font-weight: bold; margin-top: 5px;">FSSAI No<span style="margin-left: 5px; margin-right: 5px;">:</span></div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </body>
+</html>
